@@ -11,7 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RegisterActivity extends AppCompatActivity
 {
     CircleImageView ArrowLeft;
-    private String variablePruebaGit;
+    float variablePrueba;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
