@@ -163,6 +163,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/red"
+        android:onClick="registro"
         android:text="registrate" />
 
     <de.hdodenhof.circleimageview.CircleImageView

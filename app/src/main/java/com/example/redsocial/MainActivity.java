@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
-    TextView lbl2;
-    EditText txtCorreo;
-    EditText txtPassword;
+    private TextView lbl2;
+    private EditText txtCorreo;
+    private EditText txtPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
