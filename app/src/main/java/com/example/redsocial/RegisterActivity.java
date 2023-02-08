@@ -55,30 +55,29 @@ public class RegisterActivity extends AppCompatActivity
 
         if(!nombre.isEmpty() && !apellido.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty())
         {
-            if(password.equals(confirmPassword))
+            if(isEmailValid(email))
             {
-                if(password.length()>=6)
+                if(password.equals(confirmPassword))
                 {
-                    createUser(email, password);
+                    if(password.length()>=6)
+                    {
+                        createUser(email, password);
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "La contraseña debe tener mayor a 6 caracteres", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(this, "La contraseña debe tener mayor a 6 caracteres", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "La contraseña no coincide", Toast.LENGTH_LONG).show();
                 }
-            }
-            else
-            {
-                Toast.makeText(this, "Este campo no coincide con su confirmación correspondiente.", Toast.LENGTH_LONG).show();
-            }
-            if(isEmailValid(email))
-            {
-                Toast.makeText(this, "El email es valido", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "El email es valido", Toast.LENGTH_SHORT).show();
             }
             else
             {
                 Toast.makeText(this, "El email es Invalido", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this,"Haz insertado todos los campos", Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -101,6 +100,14 @@ public class RegisterActivity extends AppCompatActivity
                 }
             }
         });
+    }
+    public void limpiar()
+    {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEmail.setText("");
+        txtContraseña.setText("");
+        txtConfContraseña.setText("");
     }
     public boolean isEmailValid(String email)
     {
