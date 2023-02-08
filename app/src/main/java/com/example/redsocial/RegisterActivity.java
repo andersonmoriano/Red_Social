@@ -72,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity
                 {
                     Toast.makeText(this, "La contraseña no coincide", Toast.LENGTH_LONG).show();
                 }
-                //Toast.makeText(this, "El email es valido", Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -86,7 +85,8 @@ public class RegisterActivity extends AppCompatActivity
     }
     private void createUser(String email, String password)
     {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task)
             {
@@ -96,18 +96,10 @@ public class RegisterActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(RegisterActivity.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "El correo electrónico ingresado ya existe", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-    public void limpiar()
-    {
-        txtNombre.setText("");
-        txtApellido.setText("");
-        txtEmail.setText("");
-        txtContraseña.setText("");
-        txtConfContraseña.setText("");
     }
     public boolean isEmailValid(String email)
     {
