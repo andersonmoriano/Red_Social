@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity
                     Toast.makeText(RegisterActivity.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
             }
-        })
+        });
     }
     public boolean isEmailValid(String email)
     {
