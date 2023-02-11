@@ -13,7 +13,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity
     private EditText txtContraseña;
     private EditText txtConfContraseña;
     FirebaseAuth mAuth;
-
+    FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity
         txtConfContraseña = (EditText) findViewById(R.id.txtConfContraseña);
         ArrowLeft = (CircleImageView) findViewById(R.id.ArrowLeft);
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
     }
     public void registro(View v)
     {
@@ -70,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(this, "La contraseña no coincide", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "La contraseña no coincide con su confirmación", Toast.LENGTH_LONG).show();
                 }
             }
             else
@@ -92,6 +96,12 @@ public class RegisterActivity extends AppCompatActivity
             {
                 if(task.isSuccessful())
                 {
+                    String id = mAuth.getCurrentUser().getUid();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("email", email);
+                    map.put("password", password);
+                    mFirestore.collection("Users").document(id).set(map);
+                    limpiar();
                     Toast.makeText(RegisterActivity.this, "El usuario se registro correctamente", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -100,6 +110,14 @@ public class RegisterActivity extends AppCompatActivity
                 }
             }
         });
+    }
+    public void limpiar()
+    {
+        txtNombre.setText( "" );
+        txtApellido.setText( "" );
+        txtEmail.setText( "" );
+        txtContraseña.setText( "" );
+        txtConfContraseña.setText( "" );
     }
     public boolean isEmailValid(String email)
     {
