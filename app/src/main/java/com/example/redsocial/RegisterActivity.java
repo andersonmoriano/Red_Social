@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity
                 {
                     if(password.length()>=6)
                     {
-                        createUser(email, password);
+                        createUser(nombre,apellido,email, password);
                     }
                     else
                     {
@@ -84,10 +84,10 @@ public class RegisterActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(this, "Para Continuar inserte todos los campos", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Inserte todos los campos", Toast.LENGTH_SHORT).show();
         }
     }
-    private void createUser(String email, String password)
+    private void createUser(String nombre,String apellido,String email,String password)
     {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
         {
@@ -98,11 +98,21 @@ public class RegisterActivity extends AppCompatActivity
                 {
                     String id = mAuth.getCurrentUser().getUid();
                     Map<String, Object> map = new HashMap<>();
+                    map.put("nombre", nombre);
+                    map.put("apellido", apellido);
                     map.put("email", email);
-                    map.put("password", password);
-                    mFirestore.collection("Users").document(id).set(map);
-                    limpiar();
-                    Toast.makeText(RegisterActivity.this, "El usuario se registro correctamente", Toast.LENGTH_SHORT).show();
+                    mFirestore.collection("Users").document(id).set(map).addOnCompleteListener(new OnCompleteListener<Void>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(RegisterActivity.this, "El usuario se registro correctamente", Toast.LENGTH_SHORT).show();
+                                limpiar();
+                            }
+                        }
+                    });
                 }
                 else
                 {
@@ -121,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity
     }
     public boolean isEmailValid(String email)
     {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";//[\w\.-]+@([\w\-]+\.)+[A-Z]{2,4}
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
