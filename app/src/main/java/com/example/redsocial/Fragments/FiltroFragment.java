@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.redsocial.R;
+import com.example.redsocial.providers.AuthProvider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +22,8 @@ public class FiltroFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    AuthProvider authProvider;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -44,6 +47,7 @@ public class FiltroFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }

@@ -18,8 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 import dmax.dialog.SpotsDialog;
 
@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity
     private TextView lbl2;
     private EditText txtCorreo;
     private EditText txtPassword;
-    AuthProvider mAuthProvider;
+    AuthProvider authProvider;
     AlertDialog dialog;
+    PostActivity postActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,17 +39,30 @@ public class MainActivity extends AppCompatActivity
         lbl2 = (TextView) findViewById(R.id.lbl2);
         txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
-        mAuthProvider = new AuthProvider();
+        authProvider = new AuthProvider();
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage("Espere un Momento")
                 .setCancelable(false).build();
+        postActivity = new PostActivity();
     }
     public void Register(View v)
     {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(authProvider.getUserSesion()!=null)
+        {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
     public void iniciarSesion(View v)
     {
         userAutentication();
@@ -71,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         String email = txtCorreo.getText().toString();
         String password = txtPassword.getText().toString();
         dialog.show();
-        mAuthProvider.login(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        authProvider.login(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
         {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -89,12 +103,5 @@ public class MainActivity extends AppCompatActivity
         });
         Log.d("campo", "email: "+email);
         Log.d("campo", "password: "+password);
-    }
-    public boolean isEmailValid(String email)
-    {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";//[\w\.-]+@([\w\-]+\.)+[A-Z]{2,4}
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 }
