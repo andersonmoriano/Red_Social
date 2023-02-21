@@ -25,11 +25,12 @@ import dmax.dialog.SpotsDialog;
 public class RegisterActivity extends AppCompatActivity
 {
     CircleImageView ArrowLeft;
-    private EditText txtNombre;
-    private EditText txtApellido;
-    private EditText txtEmail;
-    private EditText txtContraseña;
-    private EditText txtConfContraseña;
+    EditText txtNombre;
+    EditText txtApellido;
+    EditText txtTelefono;
+    EditText txtEmail;
+    EditText txtContraseña;
+    EditText txtConfContraseña;
     AuthProvider mAuthProvider;
     UsuarioProvider mUserProvider;
     AlertDialog dialog;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity
         setContentView(R.layout.activity_register);
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         txtApellido = (EditText) findViewById(R.id.txtApellido);
+        txtTelefono = (EditText) findViewById(R.id.txtTelefono);
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtContraseña = (EditText) findViewById(R.id.txtContraseña);
         txtConfContraseña = (EditText) findViewById(R.id.txtConfContraseña);
@@ -55,11 +57,12 @@ public class RegisterActivity extends AppCompatActivity
     {
         String nombre = txtNombre.getText().toString();
         String apellido = txtApellido.getText().toString();
+        String telefono = txtTelefono.getText().toString();
         String email = txtEmail.getText().toString();
         String password = txtContraseña.getText().toString();
         String confirmPassword = txtConfContraseña.getText().toString();
 
-        if(!nombre.isEmpty() && !apellido.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty())
+        if(!nombre.isEmpty() && !apellido.isEmpty() && !telefono.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty())
         {
             if(isEmailValid(email))
             {

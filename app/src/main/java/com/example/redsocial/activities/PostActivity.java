@@ -217,7 +217,7 @@ public class PostActivity extends AppCompatActivity
                                                         if(tasksave.isSuccessful())
                                                         {
                                                             clearForm();
-                                                            Toast.makeText(PostActivity.this, "Se almacenó correctamente", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(PostActivity.this, "Se publicó correctamente", Toast.LENGTH_SHORT).show();
                                                         }
                                                         else
                                                         {

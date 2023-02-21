@@ -52,7 +52,7 @@
                         android:layout_height="match_parent"
                         android:onClick="uploadImage1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img1" />
+                        android:src="@drawable/subirimagen" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -71,7 +71,7 @@
                         android:layout_height="match_parent"
                         android:onClick="uploadImage2"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img1" />
+                        android:src="@drawable/subirimagen" />
 
                 </androidx.cardview.widget.CardView>
 

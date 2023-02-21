@@ -5,6 +5,7 @@ import com.example.redsocial.models.Publicacion;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class PostProvider
 {
@@ -16,5 +17,9 @@ public class PostProvider
     public Task<Void> save(Publicacion publicacion)
     {
         return collectionReference.document().set(publicacion);
+    }
+    public Query getAll()
+    {
+        return collectionReference.orderBy("nombre", Query.Direction.DESCENDING);
     }
 }
